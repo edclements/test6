@@ -1,0 +1,60 @@
+<div bb-include="_basket_item_summary">
+</div>
+
+<div class="bb-subcontent">
+
+  <div bb-times class="bb-time">
+
+    <div class="bb-calendar-navigation">
+      <button type="button" class="btn btn-link pull-left" ng-click="subtract('days',1)">
+        <span class="glyphicon glyphicon-chevron-left pull-left" aria-hidden="true"></span>
+        <span class="hidden-xs">Previous Day</span>
+      </button>
+      <button type="button" class="btn btn-link pull-right" ng-click="add('days',1)">
+        <span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true" ></span>
+        <span class="hidden-xs">Next Day</span>
+      </button>
+    </div>
+
+    <div>
+
+      <h2 class="bb-section-title text-center hidden-xs">{{selected_date | datetime: 'Do MMM YYYY'}}</h2>
+      <h2 class="bb-section-title text-center hidden-sm hidden-md hidden-lg">{{selected_date | datetime: 'Do MMM'}}</h2>
+
+      <div ng-show="!slots || (slots && slots.length == 0)" class="bb-service-unavailable">
+        <p class="text-center">
+          No availablity found
+        </p>
+      </div>
+
+      <div ng-if="slots">
+
+        <div accordion close-others="false">
+
+          <div bb-accordion-range-group="{heading: 'Morning', range: [0, 720], slots: slots, collaspe_when_time_selected: true}" day="day" slots="day.slots" select-slot="highlightSlot" ng-init="setFormDataStoreId($index)" class="accordion-group">
+          </div>
+
+          <div bb-accordion-range-group="{heading: 'Afternoon',range: [720, 1020], slots: slots, collaspe_when_time_selected: true}" day="day" slots="day.slots" select-slot="highlightSlot" ng-init="setFormDataStoreId($index)" class="accordion-group"></div>
+
+          <div bb-accordion-range-group="{heading: 'Evening', range: [1020, 1440], slots: slots, collaspe_when_time_selected: true}" day="day" slots="day.slots" select-slot="highlightSlot" ng-init="setFormDataStoreId($index)" class="accordion-group"></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="clearfix hidden-xs">
+</div>
+<div class="bb-step-navigation">
+  <div class="row">
+    <div class="col-sm-3">
+      <button type="button" class="btn btn-default" bb-debounce ng-click="loadPreviousStep()" ng-show="bb.current_step > 1">Back</button>
+    </div>
+  </div>
+</div>
